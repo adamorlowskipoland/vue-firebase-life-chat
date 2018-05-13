@@ -17,11 +17,11 @@ export default {
     name: {
       type: String,
       required: true,
-    }
+    },
   },
   data() {
     return {
-      newMessage: null,  
+      newMessage: null,
     };
   },
   methods: {
@@ -29,8 +29,8 @@ export default {
       console.log(this.newMessage);
       console.log(this.name);
       console.log(Date.now());
-    }
-  }
+    },
+  },
 };
 </script>
 
