@@ -3,7 +3,8 @@
     <h2 class="center teal-text">Life Chatting as {{ this.name }}</h2>
     <div class="card">
       <div class="card-content">
-        <ul class="messages">
+        <ul v-chat-scroll
+            class="messages">
           <li v-for="message in messages"
               :key="message.id">
             <span class="teal-text">{{ message.name }}</span>
@@ -74,6 +75,19 @@ export default {
   .chat .time {
     display: block;
     font-size: 0.8em;
+  }
+  .messages {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .messages::-webkit-scrollbar {
+    width: 3px;
+  }
+  .messages::-webkit-scrollbar-track {
+    background-color: #ddd;
+  }
+  .messages::-webkit-scrollbar-thumb {
+    background-color: #aaa;
   }
   .messages li {
     margin-bottom: 5px;

@@ -24,8 +24,5 @@ npm or yarn run unit
 npm or yarn test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+App depolyed under URL: https://live-chat-vue-ninja.firebaseapp.com
 
-Credits goes to Shaun Pelling aka The Net Ninja - https://github.com/iamshaunjp
-
-link: https://www.youtube.com/watch?v=nWBtU2QNhxk
