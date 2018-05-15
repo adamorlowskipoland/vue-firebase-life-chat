@@ -3,12 +3,12 @@
     <form @submit.prevent="addMessage">
         <label for="newMessage">New message (enter to add)</label>
         <input type="text"
-            name="newMessage"
-            id="newMessage"
-            autocomplete="off"
-            v-model="newMessage">
-            <p v-if="feedback"
-                class="red-text">{{ feedback }}</p>
+               name="newMessage"
+               id="newMessage"
+               autocomplete="off"
+               v-model="newMessage">
+        <p v-if="feedback"
+           class="red-text">{{ feedback }}</p>
     </form>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
           timestamp: Date.now(),
         })
           .catch((err) => {
-            console.error(err);
+            throw new Error(err);
           });
         this.newMessage = null;
         this.feedback = null;
@@ -50,7 +50,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

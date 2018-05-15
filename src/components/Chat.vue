@@ -1,30 +1,32 @@
 <template>
     <div class="chat container">
-        <h2 class="center teal-text">Life Chatting as {{ this.name }}</h2>
-    <div class="card">
-      <div class="card-content">
+      <h2 class="center teal-text">Life Chatting as {{ this.name }}</h2>
+      <div class="card">
+        <div class="card-content">
           <ul class="messages">
-              <li>
-                  <span class="teal-text">Name</span>
-                  <span class="grey-text text-darken-3">Message</span>
-                  <span class="grey-text time">Time</span>
-              </li>
+            <li v-for="message in messages"
+                :key="message.id">
+              <span class="teal-text">{{ message.name }}</span>
+              <span class="grey-text text-darken-3">{{ message.content }}</span>
+              <span class="grey-text time">{{ message.timestamp }}</span>
+            </li>
           </ul>
-      </div>
-      <div class="card-action">
+        </div>
+        <div class="card-action">
           <new-message :name='name'/>
+        </div>
       </div>
-    </div>
     </div>
 </template>
 
 <script>
-import NewMessage from '@/components/NewMessage'
+import NewMessage from '@/components/NewMessage';
+import db from '@/firebase/init';
 
 export default {
   name: 'Chat',
   components: {
-      NewMessage,
+    NewMessage,
   },
   props: {
     name: {
@@ -33,21 +35,40 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      messages: [],
+    };
+  },
+  created() {
+    const ref = db.collection('messages').orderBy('timestamp');
+
+    ref.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          const doc = change.doc;
+          this.messages.push({
+            id: doc.id,
+            name: doc.data().name,
+            content: doc.data().content,
+            timestamp: doc.data().timestamp,
+          });
+        }
+      });
+    });
   },
 };
 </script>
 
 <style>
 .chat h2 {
-    font-size: 2.6em;
-    margin-bottom: 40px;
+  font-size: 2.6em;
+  margin-bottom: 40px;
 }
 .chat span {
-    font-size: 1.4em;
+  font-size: 1.4em;
 }
 .chat .time {
-    display: block;
-    font-size: 1.2em;
+  display: block;
+  font-size: 1.2em;
 }
 </style>
